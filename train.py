@@ -19,7 +19,7 @@ flags.DEFINE_string('lr_mode', 'piecewise_constant',
 flags.DEFINE_string('opt_mode', 'mom',
                     'sgd / mom / rms / adam /')
 flags.DEFINE_string('start_with', 'restore',
-                    'sketch / restore')
+                    'scratch / restore')
 flags.DEFINE_integer('bs', 32, 'batch size')
 flags.DEFINE_integer('ep', 500, 'number epochs')
 flags.DEFINE_integer('ep_size', 670, 'the num of train step of one epoch')
@@ -127,7 +127,7 @@ def main(_):
     saver = tf.train.Saver(save_vars)
 
     # define init op
-    if FLAGS.start_with == 'sketch':
+    if FLAGS.start_with == 'scratch':
         init_op = tf.group(tf.global_variables_initializer(),
                            tf.local_variables_initializer())
         sess.run(init_op)
